@@ -39,6 +39,7 @@
   "scripts": {
     "osx-test": "./node_modules/.bin/mocha -t 5000 test/runners/{objc,swift}_spec",
     "js-test": "mocha -t 5000 test/runners/javascript_spec",
+    "java-test": "./node_modules/.bin/mocha -t 50000 test/runners/java_spec",
     "ts-test": "./node_modules/.bin/mocha -t 10000 test/runners/typescript_spec",
     "cs-test": "./node_modules/.bin/mocha -t 5000 test/runners/csharp_spec",
     "ruby-test": "./node_modules/.bin/mocha -t 5000 test/runners/ruby_spec",

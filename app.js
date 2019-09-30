@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+const path = require('path')
 const port = 8080
 var run = require('./lib/runner').run
 const router = express.Router()
@@ -24,7 +25,8 @@ public class TestFixture {
 }}`;
 
 router.get('/', (req, res) => {
-    res.send(`Use POST to run code`)
+    res.sendFile(path.join(__dirname + '/index.html'));
+
 })
 
 router.post('/', function (req, res) {

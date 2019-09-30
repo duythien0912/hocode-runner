@@ -1,1 +1,1 @@
-class Solution { public static void main(String[] args){ System.out.println("42"); } }
+public class Solution { public Solution(){} public int testthing(){return 3;} }

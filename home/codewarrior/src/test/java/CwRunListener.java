@@ -12,17 +12,17 @@ public class CwRunListener extends RunListener
     public void testFailure(final Failure failure)
     {
         failed = true;
-        final String msg = failure.getMessage();
-        final boolean hasMessage =  msg != null && msg.length() > 0;
-        System.out.println(String.format("\n<FAILED::>%s", formatMessage(hasMessage ? msg : "Runtime Error Occurred")));
-        if(failure.getException() != null) {
-            String prefix = "";
-            if (hasMessage) {
-              prefix = "<LOG::-Exception Details>";
-            }
+        // final String msg = failure.getMessage();
+        // final boolean hasMessage =  msg != null && msg.length() > 0;
+        // System.out.println(String.format("\n<FIRSTFAILED::>%s", formatMessage(hasMessage ? msg : "Runtime Error Occurred")));
+        // if(failure.getException() != null) {
+        //     String prefix = "";
+        //     if (hasMessage) {
+        //       prefix = "<LOG::-Exception Details>";
+        //     }
 
-            System.out.println(prefix + formatMessage(formatException(failure.getException())));
-        }
+        //     System.out.println(prefix + formatMessage(formatException(failure.getException())));
+        // }
     }
     public void testStarted(final Description description)
     {
@@ -35,7 +35,7 @@ public class CwRunListener extends RunListener
         {
             System.out.println("\n<PASSED::>Test Passed");
         }
-        System.out.println("\n<COMPLETEDIN::>");
+        // System.out.println("\n<COMPLETEDIN::>");
     }
 
     public void testRunStarted(final Description description) {
@@ -45,7 +45,16 @@ public class CwRunListener extends RunListener
     }
 
     public void testRunFinished(final Result result) {
+        System.out.println(String.format("\n<RUNCOUNT::>%s", result.getRunCount()));
+        System.out.println(String.format("\n<GETFAILURECOUNT::>%s", result.getFailureCount()));
         System.out.println(String.format("\n<COMPLETEDIN::>%sms", result.getRunTime()));
+        System.out.println(String.format("\n<GETALLFAILURE::>"));
+        for (Failure failure : result.getFailures()) {
+            System.out.println(String.format("\n<GETONEFAILURE::>%s", failure.toString()));
+        }
+        System.out.println(String.format("\n<GETALLFAILUREEND::>"));
+        System.out.println(String.format("\n<GETIGNORECOUNT::>%s", result.getIgnoreCount()));
+        System.out.println(String.format("\n<WASSUCCESSFUL::>%s", result.wasSuccessful()));
     }
 
     private static String formatException(final Throwable ex)

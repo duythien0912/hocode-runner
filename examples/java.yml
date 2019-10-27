@@ -38,5 +38,7 @@ junit:
               Person shoki = new Person("Shoki, the Demon Queller");
               assertEquals("Konbanwa!  My name is Shoki, the Demon Queller.  It is nice to meet you, Sun Wukong, the Monkey King!",
                            shoki.greet("Sun Wukong, the Monkey King"));
+              assertEquals("Konbanwa!  My name is Shoki, the Demon Queller.  It is nice to meet you, Su Wukong, the Monkey King!",
+                           shoki.greet("Sun Wukong, the Monkey King"));
           }
       }

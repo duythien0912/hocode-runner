@@ -20,63 +20,45 @@ if (cluster.isMaster) {
 
     });
 
-// Code to run if we're in a worker process
+    // Code to run if we're in a worker process
 } else {
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const compression = require('compression');
-const path = require('path');
-var run = require('./lib/runner').run
+    const express = require('express');
+    const bodyParser = require('body-parser');
+    const cors = require('cors');
+    const compression = require('compression');
+    const path = require('path');
+    var run = require('./lib/runner').run
 
 
-const app = express()
-const port = 8080
+    const app = express()
+    const port = 8080
 
-const router = express.Router()
+    const router = express.Router()
 
-app.use(cors());
-app.use(compression());
+    app.use(cors());
+    app.use(compression());
 
-var code = `
-public class Solution {
-  public Solution(){}
-  public int testthing(){return 3;}
-}`;
+    router.get('/runner', (req, res) => {
+        res.sendFile(path.join(__dirname + '/index.html'));
 
-var test = `
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import org.junit.runners.JUnit4;
-public class TestFixture {
-    public TestFixture(){}
-    @Test
-    public void myTestFunction(){
-        Solution s = new Solution();
-        assertEquals("wow", 3, s.testthing());
-}}`;
+    })
 
-router.get('/runner', (req, res) => {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    router.post('/runner', function (req, res) {
+        run({
+            language: 'java',
+            code: req.body.code,
+            fixture: req.body.test,
+        }, function (buffer) {
+            res.json(buffer);
+        });
+    })
+    // app.use(cookieParser())
+    app.use(bodyParser.json())
 
-})
+    app.use(router)
 
-router.post('/runner', function (req, res) {
-    run({
-        language: 'java',
-        code: req.body.code,
-        fixture: req.body.test,
-    }, function (buffer) {
-        res.json(buffer);
-    });
-})
-// app.use(cookieParser())
-app.use(bodyParser.json())
-
-app.use(router)
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+    app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 }
 

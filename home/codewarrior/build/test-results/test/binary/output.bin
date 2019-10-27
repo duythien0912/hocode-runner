@@ -3,7 +3,8 @@
 
 "<IT::>myTestFunction(TestFixture)
 
-<PASSED::>Test Passed
+*<FAILED::>test 1 expected:<4> but was:<3>
+±<LOG::-Exception Details>java.lang.AssertionError: test 1 expected:<4> but was:<3><:LF:>	at org.junit.Assert.fail(Assert.java:88)<:LF:>	at org.junit.Assert.failNotEquals(Assert.java:834)<:LF:>	at org.junit.Assert.assertEquals(Assert.java:645)<:LF:>	at TestFixture.myTestFunction(TestFixture.java:1)<:LF:>
 
 <COMPLETEDIN::>
 

@@ -1,7 +1,1 @@
-public class Solution {
-    public Solution(){}
-    public int conghaiso(int x,int y) 
-{
-    return x+y;
-}
-    }
+public class Solution { public Solution(){} public int conghaiso(int x,int y) { return x+y; } }

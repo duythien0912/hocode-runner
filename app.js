@@ -39,6 +39,9 @@ if (cluster.isMaster) {
     app.use(cors());
     app.use(compression());
 
+    // app.use(cookieParser())
+    app.use(bodyParser.json())
+
     router.get('/runner', (req, res) => {
         res.sendFile(path.join(__dirname + '/index.html'));
 
@@ -94,12 +97,17 @@ if (cluster.isMaster) {
             res.json(buffer);
         });
     })
-    // app.use(cookieParser())
-    app.use(bodyParser.json())
+
+    app.use(function (err, req, res, next) {
+        if (err.message === '404') {
+            res.status(404);
+            res.json({ error: err.message });
+        }
+    });
+
 
     app.use(router)
 
     app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
 }
 

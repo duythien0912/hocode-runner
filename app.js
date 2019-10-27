@@ -53,7 +53,7 @@ if (cluster.isMaster) {
             code: req.body.code,
             fixture: req.body.test,
         }, function (buffer) {
-            const regex = /<DESCRIBE::>(.*)<RUNCOUNT::>(.*)<GETFAILURECOUNT::>(.*)<COMPLETEDIN::>(.*)<GETALLFAILURE::>(.*)<GETALLFAILUREEND::>(.*)<GETIGNORECOUNT::>(.*)<WASSUCCESSFUL::>(.*)/gms;
+            const regex = RegExp(/<DESCRIBE::>(.*)<RUNCOUNT::>(.*)<GETFAILURECOUNT::>(.*)<COMPLETEDIN::>(.*)<GETALLFAILURE::>(.*)<GETALLFAILUREEND::>(.*)<GETIGNORECOUNT::>(.*)<WASSUCCESSFUL::>(.*)/gms);
             const str = buffer.stdout.replace(/\n/g, '');
 
             console.log("[str]")
@@ -62,38 +62,39 @@ if (cluster.isMaster) {
             console.log("[m]")
             console.log(m)
 
-            var listFa = [];
-            var resm5 = m[5].split("<GETONEFAILURE::>");
-            for (let index = 0; index < resm5.length; index++) {
-                const itemIn = resm5[index];
-                if (itemIn !== "") {
+            if (m !== null) {
+                var listFa = [];
+                var resm5 = m[5].split("<GETONEFAILURE::>");
+                for (let index = 0; index < resm5.length; index++) {
+                    const itemIn = resm5[index];
+                    if (itemIn !== "") {
 
-                    var resu = itemIn.split("<");
-                    var exp = resu[1].split(">")[0];
-                    var outt = resu[2].split(">")[0];
+                        var resu = itemIn.split("<");
+                        var exp = resu[1].split(">")[0];
+                        var outt = resu[2].split(">")[0];
 
 
-                    listFa.push({
-                        INDEX: index,
-                        DETAIL: itemIn,
-                        NAMEFUNC: itemIn.split("(TestFixture): ")[0],
-                        EXPECTED: exp,
-                        EXPECTED_OUTPUT: outt,
-                    });
+                        listFa.push({
+                            INDEX: index,
+                            DETAIL: itemIn,
+                            NAMEFUNC: itemIn.split("(TestFixture): ")[0],
+                            EXPECTED: exp,
+                            EXPECTED_OUTPUT: outt,
+                        });
+                    }
                 }
-            }
 
-            let outP = {
-                "DESCRIBE": m[1],
-                "RUNCOUNT": m[2],
-                "GETFAILURECOUNT": m[3],
-                "COMPLETEDIN": m[4],
-                "GETALLFAILURE": listFa,
-                "GETIGNORECOUNT": m[7],
-                "WASSUCCESSFUL": m[8],
+                let outP = {
+                    "DESCRIBE": m[1],
+                    "RUNCOUNT": m[2],
+                    "GETFAILURECOUNT": m[3],
+                    "COMPLETEDIN": m[4],
+                    "GETALLFAILURE": listFa,
+                    "GETIGNORECOUNT": m[7],
+                    "WASSUCCESSFUL": m[8],
+                }
+                buffer.stdout = outP;
             }
-            buffer.stdout = outP;
-
             res.json(buffer);
         });
     })
@@ -108,6 +109,6 @@ if (cluster.isMaster) {
 
     app.use(router)
 
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+    app.listen(port, () => console.log(`Hocode app listening on port ${port}!`))
 }
 

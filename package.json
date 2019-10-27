@@ -50,15 +50,16 @@
     "ansi-to-html": "^0.4.1",
     "bluebird": "*",
     "chai": "^3.5.0",
+    "cors": "^2.8.5",
     "escape-html": "1.0.3",
+    "express": "^4.11.2",
     "fs-extra": "^3.0.1",
     "js-yaml": "^3.8.3",
     "lodash": "^4.17.4",
     "mocha": "2.5.3",
     "nomnom": "1.6.x",
     "temp": "^0.8.3",
-    "utf8": "^2.1.1",
-    "express": "^4.11.2"
+    "utf8": "^2.1.1"
   },
   "devDependencies": {
     "@angular/common": "^4.2.6",

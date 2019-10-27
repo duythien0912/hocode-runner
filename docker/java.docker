@@ -94,7 +94,8 @@ ENV USER=codewarrior HOME=/home/codewarrior
 
 # pre-install the default referenced java libraries
 RUN cd /runner/frameworks/java && gradle --stacktrace --no-daemon compileTestJava
+RUN cd /runner/frameworks/java && gradle --daemon test
 
-RUN mocha -t 20000 test/runners/java_spec.js
+# RUN mocha -t 20000 test/runners/java_spec.js
 
 ENTRYPOINT ["./entrypoint.sh"]

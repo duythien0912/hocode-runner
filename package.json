@@ -60,7 +60,8 @@
     "nomnom": "1.6.x",
     "temp": "^0.8.3",
     "utf8": "^2.1.1",
-    "compression": "^1.7.4"
+    "compression": "^1.7.4",
+    "rimraf": "^3.0.0"
   },
   "devDependencies": {
     "@angular/common": "^4.2.6",

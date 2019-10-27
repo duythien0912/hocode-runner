@@ -53,7 +53,7 @@ if (cluster.isMaster) {
             code: req.body.code,
             fixture: req.body.test,
         }, function (buffer) {
-            const regex = RegExp(/<DESCRIBE::>(.*)<RUNCOUNT::>(.*)<GETFAILURECOUNT::>(.*)<COMPLETEDIN::>(.*)<GETALLFAILURE::>(.*)<GETALLFAILUREEND::>(.*)<GETIGNORECOUNT::>(.*)<WASSUCCESSFUL::>(.*)/gms);
+            const regex = RegExp(/<DESCRIBE::>(.*)<RUNCOUNT::>(.*)<GETFAILURECOUNT::>(.*)<COMPLETEDIN::>(.*)<GETALLFAILURE::>(.*)<GETALLFAILUREEND::>(.*)<GETIGNORECOUNT::>(.*)<WASSUCCESSFUL::>(.*)/gm);
             const str = buffer.stdout.replace(/\n/g, '');
 
             console.log("[str]")
